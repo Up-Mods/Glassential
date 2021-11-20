@@ -114,9 +114,10 @@ curseforge {
 		addGameVersion("Java ${javaVersion}")
 
 		mainArtifact(remapJar) {
-			displayName = "${archivesBaseName} ${ENV.TAG ?: version}"
+			displayName = "Glassential ${ENV.TAG ?: version}"
 			relations {
 				requiredDependency 'fabric-api'
+				optionalDependency 'mesh'
 			}
 		}
 	}
