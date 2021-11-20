@@ -1,7 +1,7 @@
-package lykrast.glassential;
+package dev.upcraft.glassential;
 
-import lykrast.glassential.blocks.BlockProperties;
-import lykrast.glassential.blocks.GlassentialGlassBlock;
+import dev.upcraft.glassential.blocks.BlockProperties;
+import dev.upcraft.glassential.blocks.GlassentialGlassBlock;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.AbstractBlock;
@@ -24,7 +24,7 @@ public class Glassential implements ModInitializer {
     public static Block LIGHT_GLASS;
     public static Block REDSTONE_GLASS;
 
-    @SuppressWarnings("unused") public static final ItemGroup GLASSENTIAL_ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MODID, "items")).icon(() -> new ItemStack(LIGHT_GLASS)).appendItems(itemStacks -> Registry.ITEM.getIds().stream().filter(identifier -> identifier.getNamespace().equals(MODID)).map(Registry.ITEM::get).map(ItemStack::new).forEachOrdered(itemStacks::add)).build();
+    @SuppressWarnings("unused") public static final ItemGroup GLASSENTIAL_ITEM_GROUP = FabricItemGroupBuilder.create(new Identifier(MODID, "items")).icon(() -> new ItemStack(LIGHT_GLASS)).appendItems(itemStacks -> Registry.ITEM.getIds().stream().filter(identifier -> identifier.getNamespace().equals(MODID)).sorted().map(Registry.ITEM::get).map(ItemStack::new).forEachOrdered(itemStacks::add)).build();
 
 	@Override
 	public void onInitialize() {

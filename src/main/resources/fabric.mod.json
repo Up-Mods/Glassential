@@ -20,23 +20,26 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/glassential-fabric",
-    "sources": "https://github.com/Lykrast/Glassential-Fabric",
-    "issues": "https://github.com/Lykrast/Glassential-Fabric/issues"
+    "sources": "https://github.com/UpcraftLP/Glassential-Fabric",
+    "issues": "https://github.com/UpcraftLP/Glassential-Fabric/issues"
   },
   "license": "MIT",
   "icon": "assets/glassential/icon.png",
   "entrypoints": {
     "main": [
-      "lykrast.glassential.Glassential"
+      "dev.upcraft.glassential.Glassential"
     ],
     "client": [
-      "lykrast.glassential.GlassentialClient"
+      "dev.upcraft.glassential.GlassentialClient"
     ]
   },
   "depends": {
-    "fabricloader": ">=0.11.3",
-    "fabric": ">=0.36-",
-    "minecraft": "1.17.x",
-    "java": ">=16"
+    "fabricloader": ">=0.12.5",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "recommends": {
+    "mesh": ">=0.18.0-alpha"
   }
 }

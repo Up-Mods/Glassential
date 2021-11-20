@@ -1,24 +1,32 @@
+import com.modrinth.minotaur.TaskModrinthUpload
+
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
-	id 'maven-publish'
+	id "fabric-loom" version "0.10.+"
+	id "maven-publish"
+	id "com.modrinth.minotaur" version "1.1.0"
+	id "com.matthewprenger.cursegradle" version "1.4.0"
 }
 
+def ENV = System.getenv()
+def buildTime = ENV.BUILD_TIME ?: new Date().format('yyyyMMddHHmmss')
+
+def javaVersion = 17
+
+group = "dev.upcraft"
+archivesBaseName = "glassential-fabric"
+
+boolean isPreviewBuild = !ENV.TAG || ENV.TAG.matches(".+-.+")
+def buildNumber = !ENV.TAG ? ("${ENV.BUILD_NUMBER ? "build.${ENV.BUILD_NUMBER}" : buildTime}-${project.minecraft_version}") : ""
+version = (ENV.TAG ?: "development") + ((isPreviewBuild && !ENV.TAG) ? "+${buildNumber}" : "")
+
 java {
+	withSourcesJar()
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(16) // ensure we are Java 16 compatible because MC1.17 requires that
+		languageVersion = JavaLanguageVersion.of(javaVersion)
 	}
 }
 
-archivesBaseName = project.archives_base_name
-version = "${minecraft_version}-${mod_version}"
-group = project.maven_group
-
-repositories {
-	mavenCentral()
-}
-
 dependencies {
-	compileOnly "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
@@ -44,16 +52,25 @@ tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
 
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
+jar {
+	from("LICENSE.md") {
+		rename { "LICENSE_${archiveBaseName.get()}" }
+	}
+
+	manifest.mainAttributes(
+			"Implementation-Title": project.archivesBaseName,
+			"Implementation-Version": project.version,
+			"Maven-Artifact": "${project.group}:${project.archivesBaseName}:${project.version}".toLowerCase(Locale.ROOT),
+			"Built-On-Minecraft": project.minecraft_version,
+			"Built-On-Java": "${System.getProperty("java.vm.version")} (${System.getProperty("java.vm.vendor")})"
+	)
 }
 
-jar {
-	from "LICENSE"
+artifacts {
+	archives(remapJar)
+	archives(sourcesJar) {
+		builtBy remapSourcesJar
+	}
 }
 
 // configure the maven publication
@@ -72,5 +89,61 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
+
+		if (ENV.MAVEN_UPLOAD_URL) {
+			maven {
+				url = ENV.MAVEN_UPLOAD_URL
+				credentials {
+					username = ENV.MAVEN_UPLOAD_USER
+					password = ENV.MAVEN_UPLOAD_PASSWORD
+				}
+			}
+		}
 	}
+}
+
+curseforge {
+	apiKey = ENV.CURSEFORGE_TOKEN ?: "invalid"
+	project {
+		id = project.curseforge_id
+		releaseType = isPreviewBuild ? ((ENV.TAG && ENV.TAG.contains("-beta")) ? "beta" : "alpha") : "release"
+		"${project.curseforge_game_versions}".split(",").each {
+			addGameVersion(it)
+		}
+		addGameVersion("Fabric") // set ModLoader to Fabric
+		addGameVersion("Java ${javaVersion}")
+
+		mainArtifact(remapJar) {
+			displayName = "${archivesBaseName} ${ENV.TAG ?: version}"
+			relations {
+				requiredDependency 'fabric-api'
+			}
+		}
+	}
+
+	options {
+		forgeGradleIntegration = false
+	}
+}
+
+task publishToModrinth(type: TaskModrinthUpload, dependsOn: assemble) {
+	if (ENV.MODRINTH_TOKEN) {
+		token = ENV.MODRINTH_TOKEN
+	}
+	projectId = project.modrinth_id
+	uploadFile = remapJar
+	versionNumber = ENV.TAG ?: version
+	versionName = versionNumber // need this here because the Modrinth API doesn't do that by default
+	releaseType = isPreviewBuild ? ((ENV.TAG && ENV.TAG.contains("-beta")) ? "beta" : "alpha") : "release"
+	"${project.modrinth_game_versions}".split(",").each {
+		addGameVersion(it)
+	}
+	addLoader("fabric")
+}
+
+if (ENV.MODRINTH_TOKEN) {
+	tasks.publish.dependsOn(publishToModrinth)
+}
+if (ENV.CURSEFORGE_TOKEN) {
+	tasks.publish.dependsOn(tasks.curseforge)
 }

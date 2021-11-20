@@ -1,4 +1,4 @@
-package lykrast.glassential;
+package dev.upcraft.glassential;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;

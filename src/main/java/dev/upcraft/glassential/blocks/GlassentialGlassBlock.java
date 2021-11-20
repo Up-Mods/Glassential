@@ -1,4 +1,4 @@
-package lykrast.glassential.blocks;
+package dev.upcraft.glassential.blocks;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

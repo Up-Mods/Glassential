@@ -1,6 +1,6 @@
-package lykrast.glassential.blocks;
+package dev.upcraft.glassential.blocks;
 
-import lykrast.glassential.Glassential;
+import dev.upcraft.glassential.Glassential;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
