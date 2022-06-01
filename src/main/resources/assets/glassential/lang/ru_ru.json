@@ -8,11 +8,11 @@
     "block.glassential.redstone_glass": "Редстоун-стекло",
 
     "tooltip.glassential.property_tinted": "Прозрачно для света",
-    "tooltip.glassential.property_ethereal": "Даёт пройти крадясь",
-    "tooltip.glassential.property_ghostly": "Даёт пройти мобов",
+    "tooltip.glassential.property_ethereal": "Даёт пройти крадущимся игрокам",
+    "tooltip.glassential.property_ghostly": "Даёт пройти мобам",
     "tooltip.glassential.property_luminous": "Выделяет яркий свет",
-    "tooltip.glassential.property_redstone": "Выделяет сильный редстоун сигнал",
-    "tooltip.glassential.property_reverse_ethereal": "Не даёт пройти крадясь",
+    "tooltip.glassential.property_redstone": "Выделяет сильный редстоун-сигнал",
+    "tooltip.glassential.property_reverse_ethereal": "Не даёт пройти крадущимся игрокам",
 
     "itemGroup.glassential.items": "Glassential"
 }
