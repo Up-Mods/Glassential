@@ -1,11 +1,11 @@
 {
-    "block.glassential.tinted_ethereal_glass": "Тонированное Эфирное Стекло",
-    "block.glassential.tinted_reverse_ethereal_glass": "Тонированное Обратное Эфирное Стекло",
-    "block.glassential.ethereal_glass": "Эфирное Стекло",
-    "block.glassential.reverse_ethereal_glass": "Обратное Эфирное Стекло",
-    "block.glassential.ghostly_glass": "Призрачное Стекло",
+    "block.glassential.tinted_ethereal_glass": "Тонированное эфирное стекло",
+    "block.glassential.tinted_reverse_ethereal_glass": "Тонированное обратное эфирное стекло",
+    "block.glassential.ethereal_glass": "Эфирное стекло",
+    "block.glassential.reverse_ethereal_glass": "Обратное эфирное стекло",
+    "block.glassential.ghostly_glass": "Призрачное стекло",
     "block.glassential.light_glass": "Светящееся стекло",
-    "block.glassential.redstone_glass": "Редстоун Стекло",
+    "block.glassential.redstone_glass": "Редстоун-стекло",
 
     "tooltip.glassential.property_tinted": "Прозрачно для света",
     "tooltip.glassential.property_ethereal": "Даёт пройти крадясь",
