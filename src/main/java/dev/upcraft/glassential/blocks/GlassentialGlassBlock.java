@@ -8,7 +8,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -66,7 +65,7 @@ public class GlassentialGlassBlock extends AbstractGlassBlock {
     @Override
     public void appendTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options) {
         for (BlockProperties property : properties) {
-            tooltip.add(new TranslatableText(property.getTranslationKey()).formatted(property.getFormatting()));
+            tooltip.add(Text.translatable(property.getTranslationKey()).formatted(property.getFormatting()));
         }
     }
 
