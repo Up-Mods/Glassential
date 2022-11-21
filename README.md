@@ -1,5 +1,6 @@
-# Glassential for Fabric [![Curseforge](http://cf.way2muchnoise.eu/glassential-fabric.svg)](https://www.curseforge.com/minecraft/mc-mods/glassential-fabric) [![Curseforge](http://cf.way2muchnoise.eu/versions/glassential-fabric.svg)](https://www.curseforge.com/minecraft/mc-mods/glassential-fabric) [![Curseforge](http://cf.way2muchnoise.eu/packs/glassential-fabric.svg)](https://www.curseforge.com/minecraft/mc-mods/glassential-fabric)
+# Glassential for Fabric [![Curseforge](https://cf.way2muchnoise.eu/320778.svg)](https://www.curseforge.com/minecraft/mc-mods/glassential-fabric)
+[![Curseforge](https://cf.way2muchnoise.eu/versions/320778.svg)](https://www.curseforge.com/minecraft/mc-mods/glassential-fabric)
 
-Adds glass of various type to your world. Inspired by all the cool glasses in Extra Utilities 2, but comes without all the other stuff. Currently maintained by Upcraft.
+Adds glass of various type to your world. Inspired by all the cool glasses in Extra Utilities 2, but comes without all the other stuff.
 
-Checkout the Forge version [here](https://github.com/Lykrast/Glassential).
+###### *[Click here to check out the Forge version!](https://www.curseforge.com/minecraft/mc-mods/glassential)*
