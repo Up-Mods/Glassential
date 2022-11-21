@@ -40,6 +40,5 @@
     "java": ">=17"
   },
   "recommends": {
-    "mesh": ">=0.18.0-alpha"
   }
 }
