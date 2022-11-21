@@ -44,9 +44,10 @@ jobs:
         env:
           BUILD_TIME: ${{ steps.current-time.outputs.formattedTime }}
           BUILD_NUMBER: ${{ github.run_number }}
-          MAVEN_UPLOAD_URL: ${{ secrets.ONYX_MAVEN_UPLOAD_URL }}
-          MAVEN_UPLOAD_USER: ${{ secrets.ONYX_MAVEN_USERNAME }}
-          MAVEN_UPLOAD_PASSWORD: ${{ secrets.ONYX_MAVEN_ACCESS_TOKEN }}
+  # !!! maven upload disabled due to invalid TLS cert !!!
+          #MAVEN_UPLOAD_URL: ${{ secrets.ONYX_MAVEN_UPLOAD_URL }}
+          #MAVEN_UPLOAD_USER: ${{ secrets.ONYX_MAVEN_USERNAME }}
+          #MAVEN_UPLOAD_PASSWORD: ${{ secrets.ONYX_MAVEN_ACCESS_TOKEN }}
           MODRINTH_USER: ${{ secrets.MODRINTH_USER }}
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
