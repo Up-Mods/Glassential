@@ -1,10 +1,6 @@
-import com.modrinth.minotaur.TaskModrinthUpload
-
 plugins {
-	id "fabric-loom" version "1.0-SNAPSHOT"
+	id "fabric-loom" version "1.3-SNAPSHOT"
 	id "maven-publish"
-	id "com.modrinth.minotaur" version "1.1.0"
-	id "com.matthewprenger.cursegradle" version "1.4.0"
 }
 
 def ENV = System.getenv()
@@ -66,22 +62,11 @@ jar {
 	)
 }
 
-artifacts {
-	archives(remapJar)
-	archives(sourcesJar) {
-		builtBy remapSourcesJar
-	}
-}
-
 // configure the maven publication
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar)
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+			from components.java
 		}
 	}
 
@@ -100,51 +85,4 @@ publishing {
 			}
 		}
 	}
-}
-
-curseforge {
-	apiKey = ENV.CURSEFORGE_TOKEN ?: "invalid"
-	project {
-		id = project.curseforge_id
-		releaseType = isPreviewBuild ? ((ENV.TAG && ENV.TAG.contains("-beta")) ? "beta" : "alpha") : "release"
-		"${project.curseforge_game_versions}".split(",").each {
-			addGameVersion(it)
-		}
-		addGameVersion("Fabric") // set ModLoader to Fabric
-		addGameVersion("Java ${javaVersion}")
-
-		mainArtifact(remapJar) {
-			displayName = "Glassential ${ENV.TAG ?: version}"
-			relations {
-				requiredDependency 'fabric-api'
-				optionalDependency 'mesh'
-			}
-		}
-	}
-
-	options {
-		forgeGradleIntegration = false
-	}
-}
-
-task publishToModrinth(type: TaskModrinthUpload, dependsOn: assemble) {
-	if (ENV.MODRINTH_TOKEN) {
-		token = ENV.MODRINTH_TOKEN
-	}
-	projectId = project.modrinth_id
-	uploadFile = remapJar
-	versionNumber = ENV.TAG ?: version
-	versionName = versionNumber // need this here because the Modrinth API doesn't do that by default
-	releaseType = isPreviewBuild ? ((ENV.TAG && ENV.TAG.contains("-beta")) ? "beta" : "alpha") : "release"
-	"${project.modrinth_game_versions}".split(",").each {
-		addGameVersion(it)
-	}
-	addLoader("fabric")
-}
-
-if (ENV.MODRINTH_TOKEN) {
-	tasks.publish.dependsOn(publishToModrinth)
-}
-if (ENV.CURSEFORGE_TOKEN) {
-	tasks.publish.dependsOn(tasks.curseforge)
 }
