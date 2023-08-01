@@ -19,7 +19,7 @@ public enum BlockProperties {
 
     BlockProperties(String translationKey, Formatting... formatting) {
         this.translationKey = Util.createTranslationKey("tooltip", new Identifier(Glassential.MODID, "property_" + translationKey));
-        this.formatting = ArrayUtils.add(formatting, 0, Formatting.ITALIC);
+        this.formatting = ArrayUtils.insert(0, formatting, Formatting.ITALIC);
     }
 
     public String getTranslationKey() {
