@@ -51,7 +51,7 @@ jobs:
           github-token: ${{ github.token }}
 
           game-versions: |
-            1.19.3
+            1.19.4
           loaders: |
             fabric
             quilt

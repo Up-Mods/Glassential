@@ -29,13 +29,11 @@ public class Glassential implements ModInitializer {
 
     @SuppressWarnings("unused")
     public static final ItemGroup GLASSENTIAL_ITEM_GROUP = FabricItemGroup.builder(new Identifier(MODID, "items")).icon(() -> new ItemStack(LIGHT_GLASS))
-            .entries((enabledFeatures, entries, operatorEnabled) -> {
-                Registries.ITEM.streamEntries()
-                        .filter(itemReference -> itemReference.registryKey().getValue().getNamespace().equals(MODID))
-                        .sorted(Comparator.comparing(itemReference -> itemReference.registryKey().getValue().getPath()))
-                        .map(RegistryEntry.Reference::value)
-                        .forEachOrdered(entries::add);
-            })
+            .entries((displayContext, entries) -> Registries.ITEM.streamEntries()
+                    .filter(itemReference -> itemReference.registryKey().getValue().getNamespace().equals(MODID))
+                    .sorted(Comparator.comparing(itemReference -> itemReference.registryKey().getValue().getPath()))
+                    .map(RegistryEntry.Reference::value)
+                    .forEachOrdered(entries::add))
             .build();
 
     @Override
@@ -54,7 +52,7 @@ public class Glassential implements ModInitializer {
         block = Registry.register(Registries.BLOCK, blockName, block);
         Item item = Registry.register(Registries.ITEM, blockName, new BlockItem(block, new Item.Settings()));
 
-        if(itemGroup != null) {
+        if (itemGroup != null) {
             ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.add(item));
         }
 
