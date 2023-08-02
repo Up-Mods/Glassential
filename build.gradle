@@ -79,7 +79,7 @@ publishing {
 			maven {
 				url = ENV.MAVEN_UPLOAD_URL
 				credentials {
-					username = ENV.MAVEN_UPLOAD_USER
+					username = ENV.MAVEN_UPLOAD_USERNAME
 					password = ENV.MAVEN_UPLOAD_PASSWORD
 				}
 			}
