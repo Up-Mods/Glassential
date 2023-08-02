@@ -10,8 +10,12 @@ import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
@@ -28,16 +32,21 @@ public class Glassential implements ModInitializer {
     public static Block REDSTONE_GLASS;
 
     @SuppressWarnings("unused")
-    public static final ItemGroup GLASSENTIAL_ITEM_GROUP = FabricItemGroup.builder(new Identifier(MODID, "items")).icon(() -> new ItemStack(LIGHT_GLASS))
-            .entries((displayContext, entries) -> Registries.ITEM.streamEntries()
-                    .filter(itemReference -> itemReference.registryKey().getValue().getNamespace().equals(MODID))
-                    .sorted(Comparator.comparing(itemReference -> itemReference.registryKey().getValue().getPath()))
-                    .map(RegistryEntry.Reference::value)
-                    .forEachOrdered(entries::add))
-            .build();
+    public static final RegistryKey<ItemGroup> GLASSENTIAL_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MODID, "items"));
 
     @Override
     public void onInitialize() {
+        Registry.register(Registries.ITEM_GROUP, GLASSENTIAL_ITEM_GROUP, FabricItemGroup.builder()
+                .displayName(Text.translatable(Util.createTranslationKey("itemGroup", new Identifier(MODID, "items"))))
+                .icon(() -> new ItemStack(LIGHT_GLASS))
+                .entries((displayContext, entries) -> Registries.ITEM.streamEntries()
+                        .filter(itemReference -> itemReference.registryKey().getValue().getNamespace().equals(MODID))
+                        .sorted(Comparator.comparing(itemReference -> itemReference.registryKey().getValue().getPath()))
+                        .map(RegistryEntry.Reference::value)
+                        .forEachOrdered(entries::add))
+                .build()
+        );
+
         TINTED_ETHEREAL_GLASS = registerBlock("tinted_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.TINTED, BlockProperties.ETHEREAL));
         TINTED_REVERSE_ETHEREAL_GLASS = registerBlock("tinted_reverse_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.TINTED, BlockProperties.REVERSE_ETHEREAL));
         ETHEREAL_GLASS = registerBlock("ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.ETHEREAL));
@@ -47,7 +56,7 @@ public class Glassential implements ModInitializer {
         REDSTONE_GLASS = registerBlock("redstone_glass", new GlassentialGlassBlock(BlockProperties.REDSTONE), ItemGroups.REDSTONE);
     }
 
-    private static Block registerBlock(String name, Block block, @Nullable ItemGroup itemGroup) {
+    private static Block registerBlock(String name, Block block, @Nullable RegistryKey<ItemGroup> itemGroup) {
         Identifier blockName = new Identifier(MODID, name);
         block = Registry.register(Registries.BLOCK, blockName, block);
         Item item = Registry.register(Registries.ITEM, blockName, new BlockItem(block, new Item.Settings()));
