@@ -9,7 +9,6 @@ public class GlassentialClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), Glassential.ETHEREAL_GLASS, Glassential.REVERSE_ETHEREAL_GLASS, Glassential.GHOSTLY_GLASS, Glassential.LIGHT_GLASS, Glassential.REDSTONE_GLASS);
 
-        // TODO change to translucent when updating textures for tinted variants
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), Glassential.TINTED_ETHEREAL_GLASS, Glassential.TINTED_REVERSE_ETHEREAL_GLASS);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), Glassential.TINTED_ETHEREAL_GLASS, Glassential.TINTED_REVERSE_ETHEREAL_GLASS);
     }
 }
