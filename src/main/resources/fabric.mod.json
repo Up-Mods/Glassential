@@ -38,5 +38,8 @@
     "fabric-api": "*",
     "minecraft": "1.20.x",
     "java": ">=17"
-  }
+  },
+  "mixins": [
+    "glassential.mixins.json"
+  ]
 }

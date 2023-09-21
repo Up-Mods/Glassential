@@ -13,6 +13,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -34,6 +35,8 @@ public class Glassential implements ModInitializer {
     @SuppressWarnings("unused")
     public static final RegistryKey<ItemGroup> GLASSENTIAL_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MODID, "items"));
 
+    public static final TagKey<Block> TINTED_GLASS_NO_CULL = TagKey.of(RegistryKeys.BLOCK, new Identifier(MODID, "no_cull/tinted"));
+
     @Override
     public void onInitialize() {
         Registry.register(Registries.ITEM_GROUP, GLASSENTIAL_ITEM_GROUP, FabricItemGroup.builder()
@@ -47,13 +50,13 @@ public class Glassential implements ModInitializer {
                 .build()
         );
 
-        TINTED_ETHEREAL_GLASS = registerBlock("tinted_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.TINTED, BlockProperties.ETHEREAL));
-        TINTED_REVERSE_ETHEREAL_GLASS = registerBlock("tinted_reverse_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.TINTED, BlockProperties.REVERSE_ETHEREAL));
-        ETHEREAL_GLASS = registerBlock("ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.ETHEREAL));
-        REVERSE_ETHEREAL_GLASS = registerBlock("reverse_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.REVERSE_ETHEREAL));
-        GHOSTLY_GLASS = registerBlock("ghostly_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, BlockProperties.GHOSTLY));
-        LIGHT_GLASS = registerBlock("light_glass", new GlassentialGlassBlock(settings -> settings.luminance(state -> 15), BlockProperties.LUMINOUS));
-        REDSTONE_GLASS = registerBlock("redstone_glass", new GlassentialGlassBlock(BlockProperties.REDSTONE), ItemGroups.REDSTONE);
+        TINTED_ETHEREAL_GLASS = registerBlock("tinted_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, "tinted", BlockProperties.TINTED, BlockProperties.ETHEREAL));
+        TINTED_REVERSE_ETHEREAL_GLASS = registerBlock("tinted_reverse_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, "tinted", BlockProperties.TINTED, BlockProperties.REVERSE_ETHEREAL));
+        ETHEREAL_GLASS = registerBlock("ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, "ethereal", BlockProperties.ETHEREAL));
+        REVERSE_ETHEREAL_GLASS = registerBlock("reverse_ethereal_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, "ethereal", BlockProperties.REVERSE_ETHEREAL));
+        GHOSTLY_GLASS = registerBlock("ghostly_glass", new GlassentialGlassBlock(AbstractBlock.Settings::noCollision, "ghostly", BlockProperties.GHOSTLY));
+        LIGHT_GLASS = registerBlock("light_glass", new GlassentialGlassBlock(settings -> settings.luminance(state -> 15), "light", BlockProperties.LUMINOUS));
+        REDSTONE_GLASS = registerBlock("redstone_glass", new GlassentialGlassBlock("redstone", BlockProperties.REDSTONE), ItemGroups.REDSTONE);
     }
 
     private static Block registerBlock(String name, Block block, @Nullable RegistryKey<ItemGroup> itemGroup) {
