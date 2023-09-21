@@ -69,11 +69,13 @@ public class GlassentialGlassBlock extends AbstractGlassBlock {
         }
     }
 
+    @Deprecated
     @Override
     public boolean emitsRedstonePower(BlockState state) {
         return this.redstone || super.emitsRedstonePower(state);
     }
 
+    @Deprecated
     @Override
     public int getWeakRedstonePower(BlockState state, BlockView view, BlockPos pos, Direction direction) {
         return this.redstone ? 15 : super.getWeakRedstonePower(state, view, pos, direction);
