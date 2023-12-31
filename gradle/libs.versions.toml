@@ -3,13 +3,13 @@
 
 loom = "1.4.+"
 
-minecraft = "1.20.2"
-fabric_loader = "0.14.22"
+minecraft = "1.20.4"
+fabric_loader = "0.15.3"
 
 # The latest versions are available at https://parchmentmc.org/docs/getting-started
 parchment = "2023.12.10"
 
-fabric_api = "0.89.0+1.20.2"
+fabric_api = "0.92.0+1.20.4"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }

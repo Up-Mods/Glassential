@@ -3,7 +3,6 @@ package dev.upcraft.glassential.blocks;
 import dev.upcraft.glassential.Glassential;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -13,9 +12,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.AbstractGlassBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -27,7 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class GlassentialGlassBlock extends AbstractGlassBlock {
+@SuppressWarnings("deprecation")
+public class GlassentialGlassBlock extends TransparentBlock {
 
     private final BlockProperties[] properties;
     private final boolean dark;
@@ -41,7 +41,7 @@ public class GlassentialGlassBlock extends AbstractGlassBlock {
     }
 
     public GlassentialGlassBlock(UnaryOperator<BlockBehaviour.Properties> settingsApplier, String cullId, BlockProperties... properties) {
-        super(settingsApplier.apply(FabricBlockSettings.copy(Blocks.GLASS)));
+        super(settingsApplier.apply(Properties.ofFullCopy(Blocks.GLASS)));
         this.properties = properties;
         List<BlockProperties> props = Arrays.asList(properties);
         this.dark = props.contains(BlockProperties.TINTED);
