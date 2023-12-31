@@ -15,13 +15,10 @@
       }
     }
   ],
-  "contributors": [
-    "Pyrofab"
-  ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/glassential-fabric",
-    "sources": "https://github.com/UpcraftLP/Glassential-Fabric",
-    "issues": "https://github.com/UpcraftLP/Glassential-Fabric/issues"
+    "sources": "https://github.com/Up-Mods/Glassential",
+    "issues": "https://github.com/Up-Mods/Glassential/issues"
   },
   "license": "MIT",
   "icon": "assets/glassential/icon.png",
