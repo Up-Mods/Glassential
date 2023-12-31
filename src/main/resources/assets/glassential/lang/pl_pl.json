@@ -1,0 +1,18 @@
+{
+    "block.glassential.tinted_ethereal_glass": "Przyciemnione Szkło Eteryczne ",
+    "block.glassential.tinted_reverse_ethereal_glass": "Przyciemnione Odrwócone Szkło Eteryczne ",
+    "block.glassential.ethereal_glass": "Szkło Eteryczne",
+    "block.glassential.reverse_ethereal_glass": "Odrwócone Szkło Eteryczne ",
+    "block.glassential.ghostly_glass": "Widmowe Szkło",
+    "block.glassential.light_glass": "Świecące Szkło",
+    "block.glassential.redstone_glass": "Szkło Redstone",
+
+    "tooltip.glassential.property_tinted": "Nie przepuszcza światła",
+    "tooltip.glassential.property_ethereal": "Umożliwia przejście podczas skradania",
+    "tooltip.glassential.property_ghostly": "Umożliwia przejście istotom",
+    "tooltip.glassential.property_luminous": "Emituje jasne światło",
+    "tooltip.glassential.property_redstone": "Emituje silny sygnał redstone",
+    "tooltip.glassential.property_reverse_ethereal": "Solidne podczas skradania",
+
+    "itemGroup.glassential.items": "Glassential"
+}
