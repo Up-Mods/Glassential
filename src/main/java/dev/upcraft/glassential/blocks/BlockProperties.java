@@ -1,32 +1,32 @@
 package dev.upcraft.glassential.blocks;
 
 import dev.upcraft.glassential.Glassential;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.ArrayUtils;
 
 public enum BlockProperties {
-    TINTED("tinted", Formatting.DARK_GRAY),
-    ETHEREAL("ethereal", Formatting.AQUA),
-    GHOSTLY("ghostly", Formatting.GRAY),
-    LUMINOUS("luminous", Formatting.GOLD),
-    REDSTONE("redstone", Formatting.DARK_RED),
-    REVERSE_ETHEREAL("reverse_ethereal", Formatting.AQUA);
+    TINTED("tinted", ChatFormatting.DARK_GRAY),
+    ETHEREAL("ethereal", ChatFormatting.AQUA),
+    GHOSTLY("ghostly", ChatFormatting.GRAY),
+    LUMINOUS("luminous", ChatFormatting.GOLD),
+    REDSTONE("redstone", ChatFormatting.DARK_RED),
+    REVERSE_ETHEREAL("reverse_ethereal", ChatFormatting.AQUA);
 
     private final String translationKey;
-    private final Formatting[] formatting;
+    private final ChatFormatting[] formatting;
 
-    BlockProperties(String translationKey, Formatting... formatting) {
-        this.translationKey = Util.createTranslationKey("tooltip", new Identifier(Glassential.MODID, "property_" + translationKey));
-        this.formatting = ArrayUtils.insert(0, formatting, Formatting.ITALIC);
+    BlockProperties(String translationKey, ChatFormatting... formatting) {
+        this.translationKey = Util.makeDescriptionId("tooltip", new ResourceLocation(Glassential.MODID, "property_" + translationKey));
+        this.formatting = ArrayUtils.insert(0, formatting, ChatFormatting.ITALIC);
     }
 
     public String getTranslationKey() {
         return translationKey;
     }
 
-    public Formatting[] getFormatting() {
+    public ChatFormatting[] getFormatting() {
         return this.formatting;
     }
 }
