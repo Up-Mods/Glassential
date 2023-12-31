@@ -1,6 +1,6 @@
 plugins {
-	id "maven-publish"
-	alias libs.plugins.fabric.loom
+    id "maven-publish"
+    alias libs.plugins.fabric.loom
 }
 
 def ENV = System.getenv()
@@ -16,73 +16,84 @@ def buildNumber = !ENV.TAG ? ("${ENV.BUILD_NUMBER ? "build.${ENV.BUILD_NUMBER}" 
 version = (ENV.TAG ?: "development") + ((isPreviewBuild && !ENV.TAG) ? "+${buildNumber}" : "")
 
 java {
-	withSourcesJar()
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(javaVersion)
-	}
+    withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+    }
+}
+
+repositories {
+    maven {
+        name = "ParchmentMC"
+        url = "https://maven.parchmentmc.org"
+    }
 }
 
 dependencies {
-	//to change the versions see the gradle.properties file
-	minecraft libs.minecraft
-	mappings loom.officialMojangMappings()
-	modImplementation libs.fabric.loader
-	modImplementation libs.fabric.api
+
+    minecraft libs.minecraft
+    mappings loom.layered() {
+        it.officialMojangMappings()
+        it.parchment("${libs.parchment.mappings.get()}@zip")
+    }
+
+    modImplementation libs.fabric.loader
+    modImplementation libs.fabric.api
 }
 
 processResources {
-	// this will ensure that this task is redone when there"s a change
-	inputs.property "version", project.version
+    // this will ensure that this task is redone when there"s a change
+    inputs.property "version", project.version
 
-	filteringCharset = "UTF-8"
+    filteringCharset = "UTF-8"
 
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+    options.encoding = "UTF-8"
 }
 
 jar {
-	from("LICENSE.md") {
-		rename { "LICENSE_${archiveBaseName.get()}" }
-	}
+    from("LICENSE.md") {
+        rename { "LICENSE_${archiveBaseName.get()}" }
+    }
 
-	manifest.mainAttributes(
-			"Implementation-Title": project.archivesBaseName,
-			"Implementation-Version": project.version,
-			"Maven-Artifact": "${project.group}:${project.archivesBaseName}:${project.version}",
-			"Built-On-Minecraft": libs.versions.minecraft.get(),
-			"Built-On-Java": "${System.getProperty("java.vm.version")} (${System.getProperty("java.vm.vendor")})"
-	)
+    manifest.mainAttributes(
+            "Implementation-Title": project.archivesBaseName,
+            "Implementation-Version": project.version,
+            "Maven-Artifact": "${project.group}:${project.archivesBaseName}:${project.version}",
+            "Built-On-Minecraft": libs.versions.minecraft.get(),
+            "Built-On-Java": "${System.getProperty("java.vm.version")} (${System.getProperty("java.vm.vendor")})"
+    )
 }
 
 // configure the maven publication
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 
-	// select the repositories you want to publish to
-	repositories {
-		// uncomment to publish to the local maven
-		// mavenLocal()
+    // select the repositories you want to publish to
+    repositories {
+        // uncomment to publish to the local maven
+        // mavenLocal()
 
-		if (ENV.MAVEN_UPLOAD_URL) {
-			maven {
-				url = ENV.MAVEN_UPLOAD_URL
-				credentials {
-					username = ENV.MAVEN_UPLOAD_USERNAME
-					password = ENV.MAVEN_UPLOAD_PASSWORD
-				}
-			}
-		}
-	}
+        if (ENV.MAVEN_UPLOAD_URL) {
+            maven {
+                url = ENV.MAVEN_UPLOAD_URL
+                credentials {
+                    username = ENV.MAVEN_UPLOAD_USERNAME
+                    password = ENV.MAVEN_UPLOAD_PASSWORD
+                }
+            }
+        }
+    }
 }
