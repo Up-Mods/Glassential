@@ -1,15 +1,15 @@
 [versions]
-# check these on https://fabricmc.net/versions.html
+# check these on https://fabricmc.net/develop
 
-loom = "1.4.+"
+loom = "1.5.+"
 
 minecraft = "1.20.4"
-fabric_loader = "0.15.3"
+fabric_loader = "0.15.6"
 
 # The latest versions are available at https://parchmentmc.org/docs/getting-started
 parchment = "2023.12.10"
 
-fabric_api = "0.92.0+1.20.4"
+fabric_api = "0.96.1+1.20.4"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
