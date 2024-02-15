@@ -36,7 +36,7 @@ public class GlassentialGlassBlock extends AbstractGlassBlock {
     }
 
     public GlassentialGlassBlock(UnaryOperator<AbstractBlock.Settings> settingsApplier, String cullId, BlockProperties... properties) {
-        super(settingsApplier.apply(FabricBlockSettings.copy(Blocks.GLASS)));
+        super(settingsApplier.apply(FabricBlockSettings.copy(Blocks.GLASS).solid()));
         this.properties = properties;
         List<BlockProperties> props = Arrays.asList(properties);
         this.dark = props.contains(BlockProperties.TINTED);
