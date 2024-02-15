@@ -41,7 +41,7 @@ public class GlassentialGlassBlock extends TransparentBlock {
     }
 
     public GlassentialGlassBlock(UnaryOperator<BlockBehaviour.Properties> settingsApplier, String cullId, BlockProperties... properties) {
-        super(settingsApplier.apply(Properties.ofFullCopy(Blocks.GLASS)));
+        super(settingsApplier.apply(Properties.ofFullCopy(Blocks.GLASS).forceSolidOn()));
         this.properties = properties;
         List<BlockProperties> props = Arrays.asList(properties);
         this.dark = props.contains(BlockProperties.TINTED);
