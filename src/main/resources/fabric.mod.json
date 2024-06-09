@@ -36,8 +36,8 @@
   "depends": {
     "fabricloader": "*",
     "fabric-api": "*",
-    "minecraft": "=1.20.4",
-    "java": ">=17"
+    "minecraft": "=1.20.6",
+    "java": ">=21"
   },
   "custom": {
     "mc-publish": {

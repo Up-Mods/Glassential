@@ -17,7 +17,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 
@@ -58,21 +57,24 @@ public class Glassential implements ModInitializer {
         GHOSTLY_GLASS = registerBlock("ghostly_glass", new GlassentialGlassBlock(BlockBehaviour.Properties::noCollission, "ghostly", BlockProperties.GHOSTLY));
         LIGHT_GLASS = registerBlock("light_glass", new GlassentialGlassBlock(settings -> settings.lightLevel(state -> 15), "light", BlockProperties.LUMINOUS));
         REDSTONE_GLASS = registerBlock("redstone_glass", new GlassentialGlassBlock("redstone", BlockProperties.REDSTONE), CreativeModeTabs.REDSTONE_BLOCKS);
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
+            entries.addAfter(Items.GLASS, GHOSTLY_GLASS);
+            entries.addBefore(Items.TINTED_GLASS, ETHEREAL_GLASS, REVERSE_ETHEREAL_GLASS, LIGHT_GLASS, REDSTONE_GLASS);
+            entries.addAfter(Items.TINTED_GLASS, TINTED_ETHEREAL_GLASS, TINTED_REVERSE_ETHEREAL_GLASS);
+        });
     }
 
-    private static Block registerBlock(String name, Block block, @Nullable ResourceKey<CreativeModeTab> itemGroup) {
+    @SafeVarargs
+    private static Block registerBlock(String name, Block block, ResourceKey<CreativeModeTab>... additionalItemGroups) {
         ResourceLocation blockName = new ResourceLocation(MODID, name);
         block = Registry.register(BuiltInRegistries.BLOCK, blockName, block);
         Item item = Registry.register(BuiltInRegistries.ITEM, blockName, new BlockItem(block, new Item.Properties()));
 
-        if (itemGroup != null) {
-            ItemGroupEvents.modifyEntriesEvent(itemGroup).register(entries -> entries.accept(item));
+        for (ResourceKey<CreativeModeTab> group : additionalItemGroups) {
+            ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.accept(item));
         }
 
         return block;
-    }
-
-    private static Block registerBlock(String name, Block block) {
-        return registerBlock(name, block, CreativeModeTabs.BUILDING_BLOCKS);
     }
 }

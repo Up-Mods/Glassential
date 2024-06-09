@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "glassential:redstone_glass",
+    "id": "glassential:redstone_glass",
     "count": 8
   }
 }

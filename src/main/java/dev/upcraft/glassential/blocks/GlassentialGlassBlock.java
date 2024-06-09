@@ -1,14 +1,13 @@
 package dev.upcraft.glassential.blocks;
 
 import dev.upcraft.glassential.Glassential;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -26,7 +25,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-@SuppressWarnings("deprecation")
 public class GlassentialGlassBlock extends TransparentBlock {
 
     private final BlockProperties[] properties;
@@ -52,17 +50,15 @@ public class GlassentialGlassBlock extends TransparentBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
-        return (this.reverseEthereal && type != PathComputationType.WATER) || super.isPathfindable(state, world, pos, type);
+    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
+        return (this.reverseEthereal && pathComputationType != PathComputationType.WATER) || super.isPathfindable(state, pathComputationType);
     }
 
-    @Deprecated
     @Override
     public int getLightBlock(BlockState state, BlockGetter view, BlockPos pos) {
         return this.dark ? view.getMaxLightLevel() : super.getLightBlock(state, view, pos);
     }
 
-    @Deprecated
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
         if (this.ethereal || this.reverseEthereal) {
@@ -72,21 +68,18 @@ public class GlassentialGlassBlock extends TransparentBlock {
         return super.getCollisionShape(state, view, pos, context);
     }
 
-    @Environment(EnvType.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, BlockGetter view, List<Component> tooltip, TooltipFlag options) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tootipComponents, TooltipFlag tooltipFlag) {
         for (BlockProperties property : properties) {
-            tooltip.add(Component.translatable(property.getTranslationKey()).withStyle(property.getFormatting()));
+            tootipComponents.add(Component.translatable(property.getTranslationKey()).withStyle(property.getFormatting()));
         }
     }
 
-    @Deprecated
     @Override
     public boolean isSignalSource(BlockState state) {
         return this.redstone || super.isSignalSource(state);
     }
 
-    @Deprecated
     @Override
     public int getSignal(BlockState state, BlockGetter view, BlockPos pos, Direction direction) {
         return this.redstone ? 15 : super.getSignal(state, view, pos, direction);
