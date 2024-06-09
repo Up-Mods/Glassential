@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "glassential_reverse_ethereal_glass",
+  "ingredients": [
+    {
+      "item": "glassential:ethereal_glass"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "glassential:reverse_ethereal_glass"
+  }
+}

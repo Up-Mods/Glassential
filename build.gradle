@@ -15,6 +15,10 @@ boolean isPreviewBuild = !ENV.TAG || ENV.TAG.matches(".+-.+")
 def buildNumber = !ENV.TAG ? ("${ENV.BUILD_NUMBER ? "build.${ENV.BUILD_NUMBER}" : buildTime}-${libs.versions.minecraft.get()}") : ""
 version = (ENV.TAG ?: "development") + ((isPreviewBuild && !ENV.TAG) ? "+${buildNumber}" : "")
 
+fabricApi {
+    configureDataGeneration()
+}
+
 java {
     withSourcesJar()
     toolchain {

@@ -77,4 +77,8 @@ public class Glassential implements ModInitializer {
 
         return block;
     }
+
+    public static ResourceLocation id(String path) {
+        return new ResourceLocation(MODID, path);
+    }
 }

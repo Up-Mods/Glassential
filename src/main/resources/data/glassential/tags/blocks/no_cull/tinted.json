@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:tinted_glass",
-    "glassential:tinted_ethereal_glass",
-    "glassential:tinted_reverse_ethereal_glass"
-  ]
-}

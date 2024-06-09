@@ -28,6 +28,9 @@
     ],
     "client": [
       "dev.upcraft.glassential.GlassentialClient"
+    ],
+    "fabric-datagen": [
+      "dev.upcraft.glassential.data.GlassentialDataGenerator"
     ]
   },
   "mixins": [

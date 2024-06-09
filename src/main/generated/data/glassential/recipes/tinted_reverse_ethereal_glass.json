@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "glassential_tinted_reverse_ethereal_glass",
+  "key": {
+    "#": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "X": {
+      "item": "glassential:reverse_ethereal_glass"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "count": 2,
+    "id": "glassential:tinted_reverse_ethereal_glass"
+  }
+}
