@@ -3,7 +3,7 @@
 
 loom = "1.6.+"
 
-minecraft = "1.21-pre4"
+minecraft = "1.21-rc1"
 fabric_loader = "0.15.11"
 
 # The latest versions are available at https://parchmentmc.org/docs/getting-started
