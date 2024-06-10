@@ -10,7 +10,7 @@
             "predicates": {
               "minecraft:enchantments": [
                 {
-                  "enchantment": "minecraft:silk_touch",
+                  "enchantments": "minecraft:silk_touch",
                   "levels": {
                     "min": 1
                   }
@@ -23,7 +23,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "glassential:tinted_ethereal_glass"
+          "name": "glassential:redstone_glass"
         }
       ],
       "rolls": 1.0

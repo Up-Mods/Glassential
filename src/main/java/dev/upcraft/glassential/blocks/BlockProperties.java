@@ -3,7 +3,6 @@ package dev.upcraft.glassential.blocks;
 import dev.upcraft.glassential.Glassential;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.ArrayUtils;
 
 public enum BlockProperties {
@@ -18,7 +17,7 @@ public enum BlockProperties {
     private final ChatFormatting[] formatting;
 
     BlockProperties(String translationKey, ChatFormatting... formatting) {
-        this.translationKey = Util.makeDescriptionId("tooltip", new ResourceLocation(Glassential.MODID, "property_" + translationKey));
+        this.translationKey = Util.makeDescriptionId("tooltip", Glassential.id("property_" + translationKey));
         this.formatting = ArrayUtils.insert(0, formatting, ChatFormatting.ITALIC);
     }
 

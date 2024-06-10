@@ -33,14 +33,14 @@ public class Glassential implements ModInitializer {
     public static Block REDSTONE_GLASS;
 
     @SuppressWarnings("unused")
-    public static final ResourceKey<CreativeModeTab> GLASSENTIAL_ITEM_GROUP = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(MODID, "items"));
+    public static final ResourceKey<CreativeModeTab> GLASSENTIAL_ITEM_GROUP = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Glassential.id("items"));
 
-    public static final TagKey<Block> TINTED_GLASS_NO_CULL = TagKey.create(Registries.BLOCK, new ResourceLocation(MODID, "no_cull/tinted"));
+    public static final TagKey<Block> TINTED_GLASS_NO_CULL = TagKey.create(Registries.BLOCK, Glassential.id("no_cull/tinted"));
 
     @Override
     public void onInitialize() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, GLASSENTIAL_ITEM_GROUP, FabricItemGroup.builder()
-                .title(Component.translatable(Util.makeDescriptionId("itemGroup", new ResourceLocation(MODID, "items"))))
+                .title(Component.translatable(Util.makeDescriptionId("itemGroup", Glassential.id("items"))))
                 .icon(() -> new ItemStack(LIGHT_GLASS))
                 .displayItems((displayContext, entries) -> BuiltInRegistries.ITEM.holders()
                         .filter(itemReference -> itemReference.key().location().getNamespace().equals(MODID))
@@ -67,7 +67,7 @@ public class Glassential implements ModInitializer {
 
     @SafeVarargs
     private static Block registerBlock(String name, Block block, ResourceKey<CreativeModeTab>... additionalItemGroups) {
-        ResourceLocation blockName = new ResourceLocation(MODID, name);
+        ResourceLocation blockName = Glassential.id(name);
         block = Registry.register(BuiltInRegistries.BLOCK, blockName, block);
         Item item = Registry.register(BuiltInRegistries.ITEM, blockName, new BlockItem(block, new Item.Properties()));
 
@@ -79,6 +79,6 @@ public class Glassential implements ModInitializer {
     }
 
     public static ResourceLocation id(String path) {
-        return new ResourceLocation(MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }
