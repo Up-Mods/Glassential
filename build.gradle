@@ -46,13 +46,17 @@ dependencies {
 }
 
 processResources {
-    // this will ensure that this task is redone when there"s a change
-    inputs.property "version", project.version
-
     filteringCharset = "UTF-8"
 
+    def props = [
+            'version': project.version,
+            'minecraft_version': libs.versions.minecraft.get(),
+            'java_version': javaVersion,
+    ]
+    inputs.properties(props)
+
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand props
     }
 }
 
